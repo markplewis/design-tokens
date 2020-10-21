@@ -15,25 +15,47 @@ on:
         description: 'Test scenario tags'  
 # the following defines the jon that is run if the above is true
 jobs:
-  build:
-    # the name for the entire job
-    name: Transform Figma design tokens for specific platforms
-    # we run this on ubuntu, leave this alone, if you don't have a good reason to change it
+  date:
     runs-on: ubuntu-latest
     steps:
-      # this lets us work in the actual repository 
-      - uses: actions/checkout@main
-      # if the folder named "tokens" does not exist, create it
-      - name: mkdir "foo" directory
-        # change tokens here (and in line 32) if you want to use a differently named folder 
-        run: 'mkdir -p foo'
-      # We now store the changes in the repository
-      - name: Persist changes in repository
-        uses: markplewis/design-tokens@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # this parameter is optional and defaults to master but I am using main
-          BRANCH_NAME: 'main'
+      # Checkout the branch
+      - name: checkout
+        uses: actions/checkout@v2-beta # use either @v2-beta or @master. Eventually there will be a @v2 tag.
+      - name: save current date
+        run: |
+          # do some operation that changes a file in the git repo
+          date > time.txt
+      - name: setup git config
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: commit
+        run: |
+          # Stage the file, commit and push
+          git add time.txt
+          git commit -m "new date commit"
+          git push origin main
+# jobs:
+#   build:
+#     # the name for the entire job
+#     name: Transform Figma design tokens for specific platforms
+#     # we run this on ubuntu, leave this alone, if you don't have a good reason to change it
+#     runs-on: ubuntu-latest
+#     steps:
+#       # this lets us work in the actual repository 
+#       - uses: actions/checkout@v2
+#       # if the folder named "tokens" does not exist, create it
+#       - name: mkdir "foo" directory
+#         # change tokens here (and in line 32) if you want to use a differently named folder 
+#         run: 'mkdir -p foo'
+#       # We now store the changes in the repository
+#       - name: Persist changes in repository
+#         uses: markplewis/design-tokens@main
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           # this parameter is optional and defaults to master but I am using main
+#           BRANCH_NAME: 'main'
       # # if the folder named "tokens" does not exist, create it
       # - name: mkdir "tokens" directory
       #   # change tokens here (and in line 32) if you want to use a differently named folder 

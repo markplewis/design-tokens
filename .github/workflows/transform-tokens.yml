@@ -1,10 +1,10 @@
 # Name of the action visible in the action overview
-name: Transform tokens send from figma
+name: Transform tokens sent from Figma
 # this triggers the action when a post to "https://api.github.com/repos/:username/:repo/dispatches" comes in
 on:
   repository_dispatch:
     # and the event_type property from the request body is 'update-tokens'
-    types: 'update-tokens'
+    types: update-tokens
   # workflow_dispatch:
   #   inputs:
   #     logLevel:
@@ -35,7 +35,7 @@ jobs:
           # Stage the file, commit and push
           git add time.txt
           git commit -m "new date commit"
-          git push origin main
+          git push origin master
 # jobs:
 #   build:
 #     # the name for the entire job
@@ -51,11 +51,11 @@ jobs:
 #         run: 'mkdir -p foo'
 #       # We now store the changes in the repository
 #       - name: Persist changes in repository
-#         uses: markplewis/design-tokens@main
+#         uses: markplewis/design-tokens@master
 #         env:
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           # this parameter is optional and defaults to master but I am using main
-#           BRANCH_NAME: 'main'
+#           # this parameter is optional and defaults to master but I am using master
+#           BRANCH_NAME: 'master'
       # # if the folder named "tokens" does not exist, create it
       # - name: mkdir "tokens" directory
       #   # change tokens here (and in line 32) if you want to use a differently named folder 
@@ -82,8 +82,8 @@ jobs:
       #   run: 'npm i && npm run transform-tokens'
       # # We now store the changes in the repository
       # - name: Persist changes in repository
-      #   uses: markplewis/design-tokens@main
+      #   uses: markplewis/design-tokens@master
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     # this parameter is optional and defaults to master but I am using main
-      #     BRANCH_NAME: 'main'
+      #     # this parameter is optional and defaults to master but I am using master
+      #     BRANCH_NAME: 'master'
